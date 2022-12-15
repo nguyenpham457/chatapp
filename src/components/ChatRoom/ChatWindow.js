@@ -7,6 +7,7 @@ import { AppContext } from '../../Context/AppProvider';
 import useFireStore from '../../hooks/useFirestore';
 import InputChat from './InputChat';
 import moment from 'moment/moment';
+import { AuthContext } from '../../Context/AuthProvider';
 const HeaderStyled = styled.div`
     display:flex;
     justify-content: space-between;
@@ -63,24 +64,20 @@ function ChatWindow() {
         operator: '==',
         compareValue: selectedRoom?.id,
     }),[selectedRoom?.id])
-    if(selectedRoom){
-        
-    }
+
     const messages = useFireStore('messages',messageCondition).sort((a,b) => a.createAt-b.createAt);
     useEffect(() => {
         // scroll to bottom after message changed
         if (messageListRef?.current) {
-          messageListRef.current.scrollTop =
-            messageListRef.current.scrollHeight + 50;
+        messageListRef.current.scrollTop =
+        messageListRef.current.scrollHeight + 50;
         }
-      }, [messages]);
+    }, [messages]);
 
-      const formatDate = (time) =>{
-        const data = moment(time.createAt).fromNow();
-        console.log('--->123',moment(time.createAt));
-        console.log('--->data',data);
-       return data;
-      }
+    const formatDate = (time) =>{
+        const data = moment(time* 1000).fromNow();
+        return data;
+    }
     return (
         <WrapperStyled>
             {selectedRoom ? <>
@@ -108,7 +105,7 @@ function ChatWindow() {
         <ContentStyled>
             <MessageListStyled ref={messageListRef}>
                 {messages ? messages.map((mess)=><Message text={mess.text} photoURL={mess.photoURL} key={mess.id}
-                displayName={mess.displayName} createAt={formatDate(mess.createAt)}></Message> ) 
+                displayName={mess.displayName} createAt={formatDate(mess?.createAt?.seconds)}></Message> ) 
                 : <></>}
             </MessageListStyled>
                 <InputChat></InputChat>
