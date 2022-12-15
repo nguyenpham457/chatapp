@@ -53,7 +53,6 @@ jobs:
             source ~/.nvm/nvm.sh
             cd ~
             cd chatapp
-            rm -rf package-lock.json
             npm i 
             npm run build
             mv build /var/www/chatapp/html
