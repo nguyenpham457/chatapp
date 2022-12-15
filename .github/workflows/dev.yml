@@ -49,6 +49,8 @@ jobs:
           username: ubuntu
           key: ${{ secrets.SSHKEY }}
           script: |
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
             cd ~
             cd chatapp
             npm run build
