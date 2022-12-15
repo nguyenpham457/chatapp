@@ -11,9 +11,8 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
-      - uses: actions/checkout@v2
-      - run: npm run build
-      - name: remove all file
+      - uses: actions/checkout@v3
+      - name: remove all file fe
         uses: appleboy/ssh-action@master
         with:
           host: "16.163.177.75"
@@ -23,14 +22,26 @@ jobs:
             cd ~
             cd /var/www/chatapp/html
             rm -rf *
+      - name: remove all file src
+        uses: appleboy/ssh-action@master
+        with:
+          host: "16.163.177.75"
+          username: ubuntu
+          key: ${{ secrets.SSHKEY }}
+          script: |
+            cd ~
+            cd ubuntu/chatapp
+            rm -rf *
+            mkdir chatapp
       - name: copy file to remote server
         uses: burnett01/rsync-deployments@5.1
         with:
           switches: -avzr --delete
-          path: ./build
-          remote_path: /var/www/chatapp/html
+          path: ./*
+          remote_path: ubuntu/chatapp
           remote_host: "16.163.177.75"
           remote_user: ubuntu
           remote_key: ${{ secrets.SSHKEY }}
+
 
             
