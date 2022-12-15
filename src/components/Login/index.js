@@ -2,13 +2,15 @@ import React from 'react';
 import {Row,Col, Button} from 'antd';
 import Title from 'antd/es/typography/Title';
 import {auth} from '../../firebase/config';
-import { FacebookAuthProvider,signInWithPopup,getAdditionalUserInfo } from "firebase/auth";
+import { FacebookAuthProvider,signInWithPopup,getAdditionalUserInfo,GoogleAuthProvider } from "firebase/auth";
 import { addDocument, generateKeywords } from '../../firebase/services';
 const fbProvider = new FacebookAuthProvider();
+const ggProvider = new GoogleAuthProvider();
 
 function Login() {
-    const handleFbLogin = async ()=>{
-       const data = await signInWithPopup(auth, fbProvider);
+    const handleFbLogin = async (provider)=>{
+       const data = await signInWithPopup(auth, provider);
+       console.log('-->data',data);
        const {user} = data;
        const {isNewUser,providerId} = getAdditionalUserInfo(data);
        if(isNewUser){
@@ -29,10 +31,12 @@ function Login() {
                 <Col span={6}>
                     <Title style={{textAlign:'center'}} level={3}>Login</Title>
            
-                <Button  style={{ width: '100%', marginBottom: 5 }} type="default">
+                <Button  style={{ width: '100%', marginBottom: 5 }} type="default" 
+                onClick={()=>handleFbLogin(ggProvider)}>
                     Đăng nhập bằng Google
                 </Button>
-                <Button style={{width:'100%'}} type="primary" onClick={handleFbLogin}>
+                <Button style={{width:'100%'}} type="primary" 
+                onClick={()=>handleFbLogin(fbProvider)}>
                     Đăng nhập bằng FaceBook
                 </Button>
                 </Col>
