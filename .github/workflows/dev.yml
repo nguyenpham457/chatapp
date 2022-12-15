@@ -50,7 +50,7 @@ jobs:
           key: ${{ secrets.SSHKEY }}
           script: |
             cd ~
-            cd ubuntu/chatapp
+            cd chatapp
             npm run build
             mv build /var/www/chatapp/html
 
