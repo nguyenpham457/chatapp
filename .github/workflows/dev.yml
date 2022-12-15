@@ -18,7 +18,7 @@ jobs:
         with:
           host: "16.163.177.75"
           username: ubuntu
-          key: "${{ SSHKEY }}"
+          key: ${{ secrets.SSHKEY }}
           script: |
             cd ~
             cd /var/www/chatapp/html
@@ -31,6 +31,6 @@ jobs:
           remote_path: /var/www/chatapp/html
           remote_host: "16.163.177.75"
           remote_user: ubuntu
-          remote_key: "${{ SSHKEY }}"
+          remote_key: ${{ secrets.SSHKEY }}
 
             
