@@ -32,6 +32,7 @@ jobs:
             cd ~
             cd ubuntu/chatapp
             rm -rf *
+            mkdir chatapp
       - name: copy file to remote server
         uses: burnett01/rsync-deployments@5.1
         with:
