@@ -1,8 +1,8 @@
 import { useEffect,useState } from "react";
-import { collection, onSnapshot,query,where,orderBy } from "firebase/firestore";
+import { collection, onSnapshot,query,where,limit } from "firebase/firestore";
 import { db } from "../firebase/config";
 
-const useFireStore = (collectionData, condition) => {
+const useFireStore = (collectionData, condition,limitData = 10) => {
     const [documents,setDocuments] = useState([]);
 
     useEffect(()=>{
@@ -14,9 +14,9 @@ const useFireStore = (collectionData, condition) => {
                 setDocuments([]);
                 return;
             }
-        queryCollection =  query(collectionRef,where(fieldName,operator,compareValue))
+        queryCollection =  query(collectionRef,where(fieldName,operator,compareValue),limit(limitData))
         } else {
-        queryCollection = query(collectionRef)
+        queryCollection = query(collectionRef,limit(limitData))
         }
 
         const unsubscribed = onSnapshot(queryCollection, (snapshot) => {
@@ -30,7 +30,7 @@ const useFireStore = (collectionData, condition) => {
             setDocuments(data)
         });
         return unsubscribed;
-    },[collectionData, condition])
+    },[collectionData, condition,limitData])
     
     return documents;
 }

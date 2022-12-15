@@ -7,7 +7,7 @@ import { AppContext } from '../../Context/AppProvider';
 import useFireStore from '../../hooks/useFirestore';
 import InputChat from './InputChat';
 import moment from 'moment/moment';
-import { AuthContext } from '../../Context/AuthProvider';
+
 const HeaderStyled = styled.div`
     display:flex;
     justify-content: space-between;
@@ -65,7 +65,7 @@ function ChatWindow() {
         compareValue: selectedRoom?.id,
     }),[selectedRoom?.id])
 
-    const messages = useFireStore('messages',messageCondition).sort((a,b) => a.createAt-b.createAt);
+    const messages = useFireStore('messages',messageCondition,10).sort((a,b) => a.createAt-b.createAt);
     useEffect(() => {
         // scroll to bottom after message changed
         if (messageListRef?.current) {

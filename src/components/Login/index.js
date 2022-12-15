@@ -9,11 +9,10 @@ const ggProvider = new GoogleAuthProvider();
 
 function Login() {
     const handleFbLogin = async (provider)=>{
-       const data = await signInWithPopup(auth, provider);
-       console.log('-->data',data);
-       const {user} = data;
-       const {isNewUser,providerId} = getAdditionalUserInfo(data);
-       if(isNewUser){
+        const data = await signInWithPopup(auth, provider);
+        const {user} = data;
+        const {isNewUser,providerId} = getAdditionalUserInfo(data);
+        if(isNewUser){
             await addDocument("users",{
                 displayName: user.displayName,
                 email: user.email,
@@ -22,15 +21,13 @@ function Login() {
                 providerID: providerId,
                 keywords: generateKeywords(user.displayName?.toLowerCase())
             })   
-       }
+        }
     }
 
-
     return (
-           <Row justify='center' style={{ height: 800 }}>
+        <Row justify='center' style={{ height: 800 }}>
                 <Col span={6}>
                     <Title style={{textAlign:'center'}} level={3}>Login</Title>
-           
                 <Button  style={{ width: '100%', marginBottom: 5 }} type="default" 
                 onClick={()=>handleFbLogin(ggProvider)}>
                     Đăng nhập bằng Google
