@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { UserAddOutlined } from '@ant-design/icons';
 import Message from './Message';
 import { AppContext } from '../../Context/AppProvider';
-import useFireStore from '../../hooks/useFirestore';
+import {useFireStoreWithOrderBy } from '../../hooks/useFirestore';
 import InputChat from './InputChat';
 import moment from 'moment/moment';
 
@@ -56,6 +56,7 @@ const WrapperStyled = styled.div`
     height: 100vh;
 `
 
+
 function ChatWindow() {
     const {selectedRoom ,members, setIsInviteMemberVisible} = useContext(AppContext)
     const messageListRef = useRef(null);
@@ -64,8 +65,12 @@ function ChatWindow() {
         operator: '==',
         compareValue: selectedRoom?.id,
     }),[selectedRoom?.id])
+    const orderByData = useMemo(()=>({
+        orderByName: 'createAt',
+        orderByDirection: 'desc'
+    }),[])
+    const messages = useFireStoreWithOrderBy('messages',messageCondition,10,orderByData).sort((a,b) => a.createAt-b.createAt);
 
-    const messages = useFireStore('messages',messageCondition,10).sort((a,b) => a.createAt-b.createAt);
     useEffect(() => {
         // scroll to bottom after message changed
         if (messageListRef?.current) {
@@ -112,7 +117,6 @@ function ChatWindow() {
             </ContentStyled>
             </> : <Alert message="Chọn phòng đi bạn ơi" type='info' showIcon closable></Alert>
             }
-
         </WrapperStyled>
     );
 }
