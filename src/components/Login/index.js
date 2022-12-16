@@ -19,7 +19,7 @@ function Login() {
                 photoURL: user.photoURL,
                 uid: user.uid,
                 providerID: providerId,
-                keywords: generateKeywords(user.displayName?.toLowerCase())
+                keywords: generateKeywords(user.displayName?.toLowerCase()),
             })   
         }
     }
