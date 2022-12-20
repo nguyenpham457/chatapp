@@ -1,9 +1,10 @@
-import { Avatar, Button, Typography } from 'antd';
+import { Avatar, Button, Row, Typography } from 'antd';
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 import { auth } from '../../firebase/config';
 import { AuthContext } from '../../Context/AuthProvider';
+import { AppContext } from '../../Context/AppProvider';
 
 const WrapperStyled = styled.div`
     display: flex;
@@ -17,19 +18,21 @@ const WrapperStyled = styled.div`
 `
 
 function UserInfo() {
-
+    const {setIsEditUserVisible} = useContext(AppContext)
+    
     const {user :{
         displayName,
         photoURL
     }} = useContext(AuthContext)
 
+
     return (
         <WrapperStyled>
-            <div>
+            <Row  onClick={()=>setIsEditUserVisible(true)}>
                 <Avatar src={photoURL}>{photoURL ? '' : displayName?.charAt(0)?.toUpperCase()}
                 </Avatar>
                 <Typography.Text className='username'>{displayName}</Typography.Text>
-            </div>
+            </Row>
             <Button ghost onClick={()=>auth.signOut()}> Đăng xuất</Button>
         </WrapperStyled>
     );

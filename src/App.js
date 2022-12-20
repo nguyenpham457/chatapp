@@ -7,6 +7,7 @@ import AuthProvider from './Context/AuthProvider';
 import AppProvider from './Context/AppProvider';
 import AddRoomModal from './components/Modals/AddRoomModal';
 import InviteMemberModal from './components/Modals/InviteMemberModal';
+import EditUserModal from './components/Modals/EditUserModal';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         </Switch>
         <AddRoomModal></AddRoomModal>
         <InviteMemberModal></InviteMemberModal>
+        <EditUserModal></EditUserModal>
         </AppProvider>
       </AuthProvider>
     </BrowserRouter>

@@ -4,7 +4,6 @@ import { db } from "../firebase/config";
 
 const useFireStore = (collectionData, condition,limitData = 10,orderByData) => {
     const [documents,setDocuments] = useState([]);
-
     useEffect(()=>{
         let collectionRef = collection(db, collectionData);
         let queryCollection;

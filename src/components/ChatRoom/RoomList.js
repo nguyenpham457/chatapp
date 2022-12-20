@@ -35,15 +35,15 @@ function RoomList() {
         setIsAddRoomVisible(true)
     }
     return (
-       <Collapse ghost defaultActiveKey={['1']}>
-        <PanelStyled header="Danh sách các phòng" key='1'>
-            {rooms.map(room=>
-            <LinkStyled key={room.id}  onClick={()=>setSelectedRoomId(room.id)}>{room.name}</LinkStyled>)}
-            <Button className='add-room' type='text' icon={<PlusSquareOutlined/>}
-            onClick={handleAddRoom}
+        <Collapse ghost defaultActiveKey={['1']}>
+            <PanelStyled header="Danh sách các phòng" key='1'>
+                {rooms.map(room=>
+                <LinkStyled key={room.id}  onClick={()=>setSelectedRoomId(room.id)}>{room.name}</LinkStyled>)}
+                <Button className='add-room' type='text' icon={<PlusSquareOutlined/>}
+                onClick={handleAddRoom}
                 >Thêm phòng</Button>
-        </PanelStyled>
-       </Collapse>
+            </PanelStyled>
+        </Collapse>
     );
 }
 

@@ -8,9 +8,9 @@ function AppProvider({children}) {
     const [selectedRoomId,setSelectedRoomId] = useState('')
     const [isAddRoomVisible,setIsAddRoomVisible] = useState(false)
     const [isInviteMemberVisible,setIsInviteMemberVisible] = useState(false)
+    const [isEditUserVisible,setIsEditUserVisible] = useState(false)
 
     const {user} = useContext(AuthContext)
-
     const roomsCondition = useMemo(()=>{
         return {
             fieldName: 'members',
@@ -32,7 +32,8 @@ function AppProvider({children}) {
 
     return (
         <AppContext.Provider value={{ rooms,isAddRoomVisible,setIsAddRoomVisible
-        ,selectedRoomId,setSelectedRoomId,selectedRoom,members,isInviteMemberVisible,setIsInviteMemberVisible }}>
+        ,selectedRoomId,setSelectedRoomId,selectedRoom,members,isInviteMemberVisible,setIsInviteMemberVisible,
+        isEditUserVisible,setIsEditUserVisible }}>
             {children}
         </AppContext.Provider>
     );
